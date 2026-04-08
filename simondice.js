@@ -5,7 +5,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// Colores representados como números
+// Colores disponibles
 const tcolores = {
   ROJO: 0,
   VERDE: 1,
@@ -14,7 +14,7 @@ const tcolores = {
 
 };
 
-
+// Número máximo de colores de la secuencia
 const MAX_COLORES_SEQ = 12;
 
 // Convierte letra a número de color
@@ -38,7 +38,6 @@ function intToColor(numero) {
 }
 
 // Genera secuencia completa
-
 function generarSecuencia(numcolores) {
     const sec = [];
 
@@ -49,6 +48,7 @@ function generarSecuencia(numcolores) {
 
     return sec;
 }
+// Muestra la secuencia hasta el número indicado
 function mostrarSecuencia ( secuenciaColores , numero ) { 
     let texto = "Secuencia: ";
     for(let i=0;i<numero;i++){
@@ -58,6 +58,7 @@ function mostrarSecuencia ( secuenciaColores , numero ) {
     return texto;
 
 }
+// Comprobar si el color introducido es correcto
 function comprobarcolor (secuencia,indice,color){
     for(let i=0;i<secuencia.length;i++){
         if(secuencia[indice]==color){
@@ -68,7 +69,7 @@ function comprobarcolor (secuencia,indice,color){
     }
 }
 
-// Preguntar con promesa
+// Preguntar  y esperar la respuesta del usuario
 function pregunta(texto) {
     return new Promise(resolve => rl.question(texto, resolve));
 }
@@ -123,8 +124,9 @@ async function comenzarjuego(nombre, rl) {
         longitud++;
 
     }   
-    rl.close();
+    
 }
+
 // Inicio del programa
 rl.question("Bienvenido a Simón dice!\n¿Cuál es tu nombre? ", nombre => {
     comenzarjuego(nombre);
