@@ -19,7 +19,7 @@ const MAX_COLORES_SEQ = 12;
 
 // Convierte letra a número de color
 function charToColor(color) {
-    letra = color.toLowerCase();
+     letra = color.toLowerCase();
 
     if (color === "r") return tcolores.ROJO;
     if (color === "v") return tcolores.VERDE;
@@ -123,6 +123,7 @@ async function comenzarjuego(nombre, rl) {
         longitud++;
 
     }   
+    rl.close();
 }
 // Inicio del programa
 rl.question("Bienvenido a Simón dice!\n¿Cuál es tu nombre? ", nombre => {
