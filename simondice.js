@@ -73,7 +73,7 @@ function comprobarcolor (secuencia,indice,color){
 function pregunta(texto) {
     return new Promise(resolve => rl.question(texto, resolve));
 }
-
+// funcion principal que maneja el juego
 async function comenzarjuego(nombre, rl) {
     console.log(`Hola ${nombre}, pulsa Enter para empezar.`);
     await pregunta("");
