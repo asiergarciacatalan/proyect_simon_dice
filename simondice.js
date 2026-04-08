@@ -15,7 +15,7 @@ const tcolores = {
 };
 
 
-const MAX_COLORES = 12;
+const MAX_COLORES_SEQ = 12;
 
 // Convierte letra a número de color
 function charToColor(color) {
@@ -42,7 +42,7 @@ function intToColor(numero) {
 function generarSecuencia(numcolores) {
     const sec = [];
 
-    for (let i = 0; i < MAX_COLORES; i++) {
+    for (let i = 0; i < MAX_COLORES_SEQ; i++) {
         const aleatorio = parseInt(Math.random() * numcolores);
         sec.push(aleatorio);
     }
@@ -81,7 +81,7 @@ async function comenzarjuego(nombre, rl) {
     const secuenciacolores = generarSecuencia(numcolores);
     let longitud = 3;
 
-    while (true || longitud <= MAX_COLORES) {
+    while (true || longitud <= MAX_COLORES_SEQ) {
         console.clear();
         console.log(`Nivel ${longitud - 2}`);
         console.log(mostrarSecuencia(secuenciacolores,longitud));
@@ -113,9 +113,11 @@ async function comenzarjuego(nombre, rl) {
         console.log("Pasamos al siguiente nivel...");
 
         await pregunta("");
-        if (longitud = MAX_COLORES) {
+        
+        if (longitud >= MAX_COLORES_SEQ) {
             console.log("¡Felicidades! Has completado el juego.");
-            break;
+            
+           
             
         }
 
