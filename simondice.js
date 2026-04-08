@@ -108,18 +108,17 @@ async function comenzarjuego(nombre, rl) {
             console.log("¡Incorrecto! Fin del juego.");
             break;
         }
-        console.log("¡Correcto!");
-
-        console.log("Pasamos al siguiente nivel...");
-
-        await pregunta("");
         
         if (longitud >= MAX_COLORES_SEQ) {
             console.log("¡Felicidades! Has completado el juego.");
-            
+            break;
            
             
         }
+        console.log("¡Correcto!");
+
+        console.log("Pasamos al siguiente nivel...");
+        await pregunta("");
 
         longitud++;
 
