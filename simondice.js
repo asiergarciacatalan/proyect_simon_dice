@@ -101,18 +101,18 @@ async function comenzarjuego(nombre, rl) {
             if (!comprobarcolor(secuenciacolores,i,color)) {
 
                 correcto = false;
-                break;
+                
             }
         }
         if (!correcto) {
 
             console.log("¡Incorrecto! Fin del juego.");
-            break;
+            
         }
         
         if (longitud >= MAX_COLORES_SEQ) {
             console.log("¡Felicidades! Has completado el juego.");
-            break;
+            
            
             
         }
