@@ -19,14 +19,14 @@ const MAX_COLORES_SEQ = 12;
 
 // Convierte letra a número de color
 function charToColor(color) {
-     letra = color.toLowerCase();
+    const letra = color.toLowerCase();
 
-    if (color === "r") return tcolores.ROJO;
-    if (color === "v") return tcolores.VERDE;
-    if (color === "a") return tcolores.AZUL;
-    if (color === "d") return tcolores.DORADO;
+    if (letra === "r") return tcolores.ROJO;
+    if (letra === "v") return tcolores.VERDE;
+    if (letra === "a") return tcolores.AZUL;
+    if (letra === "d") return tcolores.DORADO;
 
-    return null;
+    
 }
 
 // Convierte número a nombre
@@ -60,13 +60,8 @@ function mostrarSecuencia ( secuenciaColores , numero ) {
 }
 // Comprobar si el color introducido es correcto
 function comprobarcolor (secuencia,indice,color){
-    for(let i=0;i<secuencia.length;i++){
-        if(secuencia[indice]==color){
-            return true
-        } else{
-            return false
-         }
-    }
+    return secuencia[indice] === color;
+    
 }
 
 // Preguntar  y esperar la respuesta del usuario
@@ -81,8 +76,9 @@ async function comenzarjuego(nombre, rl) {
     const numcolores = 4;
     const secuenciacolores = generarSecuencia(numcolores);
     let longitud = 3;
+    let juegoactivo = true;
 
-    while (true || longitud <= MAX_COLORES_SEQ) {
+    while (juegoactivo && longitud <= MAX_COLORES_SEQ) {
         console.clear();
         console.log(`Nivel ${longitud - 2}`);
         console.log(mostrarSecuencia(secuenciacolores,longitud));
@@ -92,38 +88,42 @@ async function comenzarjuego(nombre, rl) {
         console.log(`Introduce ${longitud} colores (R, V, A, D):`);
        
         let correcto = true;
-        for(let i=0;i<longitud;i++){
+        let i=0;
+        while (i < longitud && correcto) {
 
             const respuesta = await pregunta(`Color ${i + 1}: `);
-            comprobarcolor(secuenciacolores,longitud,respuesta);
             const color = charToColor(respuesta);
             
             if (!comprobarcolor(secuenciacolores,i,color)) {
 
                 correcto = false;
                 
-            }
+                
+            }else{
+                i++;
+            }     
         }
+
         if (!correcto) {
 
             console.log("¡Incorrecto! Fin del juego.");
-            
-        }
-        
-        if (longitud >= MAX_COLORES_SEQ) {
+            juegoactivo = false;
+
+        } else if (longitud >= MAX_COLORES_SEQ) {
+
             console.log("¡Felicidades! Has completado el juego.");
-            
-           
-            
+            juegoactivo = false;
+
+        } else {
+
+            console.log("¡Correcto!");
+            console.log("Pasamos al siguiente nivel...");
+            await pregunta("");
+
+            longitud++;
+
         }
-        console.log("¡Correcto!");
-
-        console.log("Pasamos al siguiente nivel...");
-        await pregunta("");
-
-        longitud++;
-
-    }   
+    }
     
 }
 
