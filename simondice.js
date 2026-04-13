@@ -124,10 +124,10 @@ async function comenzarjuego(nombre, rl) {
 
         }
     }
-    
+    rl.close();
 }
 
 // Inicio del programa
 rl.question("Bienvenido a Simón dice!\n¿Cuál es tu nombre? ", nombre => {
-    comenzarjuego(nombre);
+    comenzarjuego(nombre,rl);
 });
