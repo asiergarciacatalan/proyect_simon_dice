@@ -195,22 +195,11 @@ async function comenzarjuego(nombre, rl, modo) {
     }
 }
 
-// Función para mostrar el menú principal y obtener la opción del usuario
 
-async function menu() {
-    console.clear();
-    
-    console.log("\n===== SIMON DICE =====\n");
-    console.log("Elija una opción para continuar:");
-    console.log("0: Salir.");
-    console.log("1: Jugar en modo sencillo.");
-    console.log("2: Jugar en modo difícil.\n");
-    
-    const opcion = await pregunta("Opción: ");
-    return opcion;
-}
 
-//
+
+
+//Función principal que maneja el menú y la interacción inicial con el jugador
 
 async function main() {
     console.clear();
@@ -225,7 +214,14 @@ async function main() {
     let continuar = true;
     
     while (continuar) {
-        const opcion = await menu();
+        console.clear();
+    
+        console.log("\n===== SIMON DICE =====\n");
+        console.log("Elija una opción para continuar:");
+        console.log("0: Salir.");
+        console.log("1: Jugar en modo sencillo.");
+        console.log("2: Jugar en modo difícil.\n");
+        const opcion = await pregunta("Opción: ");
         
         if (opcion === "0") {
             console.log("¡Gracias por jugar! ¡Hasta pronto!\n");
@@ -244,5 +240,5 @@ async function main() {
     
     rl.close();
 }
-
+// Iniciar el juego y controlar los errores que puedan surgir durante la ejecución
 main().catch(console.error);
