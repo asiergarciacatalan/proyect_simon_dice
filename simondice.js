@@ -5,10 +5,7 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-// =====================================================
-// CONSTANTES Y COLORES
-// =====================================================
-
+// Definición de colores con sus respectivos números
 const tcolores = {
   ROJO: 0,
   VERDE: 1,
@@ -19,19 +16,13 @@ const tcolores = {
   NARANJA: 6
 };
 
-// Número máximo de colores de la secuencia
+// Constantes imprescindibles para el juego
 const MAX_COLORES_SEQ = 15;
 const MAX_FACIL = 4;
 const MAX_DIFICIL = 7;
 const AYUDAS = 3;
 
-// =====================================================
-// FUNCIONES DE CONVERSIÓN
-// =====================================================
-
-/**
- * Convierte letra a número de color
- */
+// Función para convertir letra a número de color
 function charToColor(letracolor) {
     const letra = letracolor.toLowerCase();
 
@@ -46,9 +37,7 @@ function charToColor(letracolor) {
     return -1;
 }
 
-/**
- * Convierte número a nombre de color
- */
+// Función para convertir número de color a su nombre
 function intToColor(numero) {
     if (numero === tcolores.ROJO) return "Rojo";
     if (numero === tcolores.VERDE) return "Verde";
@@ -61,13 +50,8 @@ function intToColor(numero) {
     return "Desconocido";
 }
 
-// =====================================================
-// FUNCIONES DEL JUEGO
-// =====================================================
+// Función para generar una secuencia aleatoria de colores
 
-/**
- * Genera una secuencia aleatoria de colores
- */
 function generarSecuencia(numcolores) {
     const sec = [];
 
@@ -79,9 +63,8 @@ function generarSecuencia(numcolores) {
     return sec;
 }
 
-/**
- * Muestra la secuencia hasta el número indicado
- */
+// Función para mostrar la secuencia de colores al jugador
+
 function mostrarSecuencia(secuenciaColores, numero) { 
     let resultado = "Secuencia: ";
     
@@ -98,43 +81,34 @@ function mostrarSecuencia(secuenciaColores, numero) {
     return resultado;
 }
 
-/**
- * Comprueba si el color introducido es correcto
- */
+// Función para comprobar si el color ingresado por el usuario es correcto
+
 function comprobarcolor(secuencia, indice, color) {
     return secuencia[indice] === color;
 }
 
-/**
- * Pregunta al usuario y espera respuesta
- */
+// Función para hacer preguntas al usuario y esperar su respuesta
 function pregunta(texto) {
     return new Promise(resolve => rl.question(texto, resolve));
 }
 
-/**
- * Gestiona las ayudas disponibles
- */
-function usarAyuda(secuenciacolores, indice, ayudas) {
-    if (ayudas > 0) {
+// Función para utilizar una ayuda y mostrar el color correcto al jugador
+
+function utilizarAyuda(secuenciacolores, indice, numAyudas) {
+    if (numAyudas > 0) {
         let colorNumero = secuenciacolores[indice];
         let colorNombre = intToColor(colorNumero);
         console.log("El color es: " + colorNombre);
-        console.log("Ayudas restantes: " + (ayudas - 1));
-        return ayudas - 1;
+        console.log("Ayudas restantes: " + (numAyudas - 1));
+        return numAyudas - 1;
     } else {
         console.log("No hay mas ayudas disponibles");
         return 0;
     }
 }
 
-// =====================================================
-// FUNCIÓN PRINCIPAL DEL JUEGO
-// =====================================================
+// Función principal para comenzar el juego que maneja todo el flujo del processo del juego
 
-/**
- * Función principal que maneja el juego
- */
 async function comenzarjuego(nombre, rl, modo) {
     console.clear();
      
@@ -171,7 +145,7 @@ async function comenzarjuego(nombre, rl, modo) {
         console.clear();
         console.log(`Ayudas disponibles: ${ayudas}`);
         
-        // Mostrar colores disponibles según el modo
+       
         if (modo === 1) {
             console.log(`Introduce ${longitud} colores (R, V, A, D, x=ayuda):`);
         } else {
@@ -185,20 +159,20 @@ async function comenzarjuego(nombre, rl, modo) {
             const respuesta = await pregunta(`Color ${i + 1}: `);
             
             if (respuesta === "x") {
-                // El usuario solicita una ayuda
-                ayudas = usarAyuda(secuenciacolores, i, ayudas);
+                
+                ayudas = utilizarAyuda(secuenciacolores, i, ayudas);
             } else {
-                // El usuario introduce un color
+                
                 let colorusuario = charToColor(respuesta);
                 
-                // Validar que el color sea válido
+                
                 if (colorusuario === -1) {
                     console.log("Color inválido. Intenta de nuevo.");
                 } else if (!comprobarcolor(secuenciacolores, i, colorusuario)) {
-                    // Color incorrecto
+                    
                     correcto = false;
                 } else {
-                    // Color correcto
+                    
                     i++;
                 }
             }
@@ -221,13 +195,8 @@ async function comenzarjuego(nombre, rl, modo) {
     }
 }
 
-// =====================================================
-// MENÚ PRINCIPAL
-// =====================================================
+// Función para mostrar el menú principal y obtener la opción del usuario
 
-/**
- * Muestra el menú principal
- */
 async function menu() {
     console.clear();
     
@@ -241,13 +210,8 @@ async function menu() {
     return opcion;
 }
 
-// =====================================================
-// PROGRAMA PRINCIPAL
-// =====================================================
+//
 
-/**
- * Función principal del programa
- */
 async function main() {
     console.clear();
     console.log("Bienvenido a Simón dice!\n");
@@ -255,6 +219,7 @@ async function main() {
     
     if (nombre === "") {
         console.log("Nombre no válido. Usando 'Jugador'...\n");
+        nombre = "Jugador";
     }
     
     let continuar = true;
